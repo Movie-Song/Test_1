@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -97,9 +97,11 @@
         }
 
         function calculateResult(answers) {
-            // 여기에 답변에 따라 결과를 계산하는 로직을 추가
-            // 예를 들면, answers 객체를 분석하여 결과를 반환
-            // 간단한 로직으로 두 결과 중 하나를 선택하면 됩니다.
+            // 답변 중 'A'의 개수가 'B'보다 많으면 'A' 반환, 그렇지 않으면 'B' 반환
+            const countA = Object.values(answers).filter(answer => answer === 'A').length;
+            const countB = Object.values(answers).filter(answer => answer === 'B').length;
+
+            return countA > countB ? 'A' : 'B';
         }
 
         function displayResult(result) {
@@ -107,8 +109,9 @@
             const resultDescription = document.getElementById('resultDescription');
             const resultContainer = document.getElementById('result');
 
-            resultTitle.textContent = result === 'A' ? '결과 A' : '당신은 프런트엔드 개발자';
-            resultDescription.textContent = result === 'A' ? 'A에 대한 설명' : 'HTML을 공부해볼까요?';
+            // 실제 사용 시에는 더 다양한 결과와 설명을 추가할 수 있습니다.
+            resultTitle.textContent = result === 'A' ? '당신은 백엔드 개발자가 어울립니다.' : '당신은 프런트엔드 개발자가 어울립니다.';
+            resultDescription.textContent = result === 'A' ? 'A에 대한 설명' : '당신에게 추천하는 책은 《백엔드 프로그래밍을 위한 PHP & MySQL》';
             resultContainer.style.display = 'block';
         }
 
