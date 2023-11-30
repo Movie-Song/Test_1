@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <title>Personality Test</title>
+</head>
+<body>
+    <div class="container">
+        <h1>성격 테스트</h1>
+        <form id="personalityForm">
+            <div class="question" id="question1">
+                <p>1. 라면 끓일 때 나의 타입은?</p>
+                <input type="radio" name="q1" value="A"> 세상에서 가장 맛있는 나만의 레시피가 있지.
+                <input type="radio" name="q1" value="B"> 오늘은 어떤 라면을 만들어 볼까? 백선생님 나와라~!
+            </div>
+
+            <div class="question" id="question2" style="display: none;">
+                <p>2. 내가 더 자주 하는 말은?</p>
+                <input type="radio" name="q2" value="A"> 현실적으로 생각해봐.
+                <input type="radio" name="q2" value="B"> 상상을 좀 해봐!
+            </div>
+
+            <div class="question" id="question3" style="display: none;">
+                <p>3. 갑자기 폭우가 내릴 때 당신의 반응은?</p>
+                <input type="radio" name="q3" value="A"> 우산 사야 하나... 돈 아까워.
+                <input type="radio" name="q3" value="B"> 축축하고 젖는 거 너무 싫어!
+            </div>
+
+            <div class="question" id="question4" style="display: none;">
+                <p>4. 쇼핑할 때 자주 듣는 말은?</p>
+                <input type="radio" name="q4" value="A"> 제발 사라 사!
+                <input type="radio" name="q4" value="B"> 아니... 또 사?
+            </div>
+
+            <div class="question" id="question5" style="display: none;">
+                <p>5. 항마력이 필요한 오글거리는 연예인의 짤을 봤을 때 드는 생각은?</p>
+                <input type="radio" name="q5" value="A"> 연예인도 먹고 살기 힘들구나.
+                <input type="radio" name="q5" value="B"> 극.혐.
+            </div>
+
+            <button type="button" onclick="submitForm()">다음</button>
+        </form>
+        <div id="result" style="display: none;">
+            <h2 id="resultTitle"></h2>
+            <p id="resultDescription"></p>
+        </div>
+    </div>
+    <script>
+        const selectedAnswers = {};
+
+        function submitForm() {
+            const currentQuestion = document.querySelector('.question:not([style="display: none;"])');
+            const questionNumber = currentQuestion.id.replace('question', '');
+
+            const selectedOption = document.querySelector(`input[name="q${questionNumber}"]:checked`);
+            if (!selectedOption) {
+                alert(`질문 ${questionNumber}에 답변을 선택해주세요.`);
+                return;
+            }
+
+            selectedAnswers[`q${questionNumber}`] = selectedOption.value;
+
+            // 다음 질문 표시 또는 결과 표시
+            const nextQuestionNumber = parseInt(questionNumber) + 1;
+            const nextQuestion = document.getElementById(`question${nextQuestionNumber}`);
+            const submitButton = document.querySelector('button');
+
+            if (nextQuestion) {
+                currentQuestion.style.display = 'none';
+                nextQuestion.style.display = 'block';
+                submitButton.textContent = nextQuestionNumber === 5 ? '결과 확인' : '다음';
+            } else {
+                const result = calculateResult(selectedAnswers);
+                displayResult(result);
+            }
+        }
+
+        function calculateResult(answers) {
+            // 여기에 답변에 따라 결과를 계산하는 로직을 추가
+            // 예를 들면, answers 객체를 분석하여 결과를 반환
+            // 간단한 로직으로 두 결과 중 하나를 선택하면 됩니다.
+        }
+
+        function displayResult(result) {
+            const resultTitle = document.getElementById('resultTitle');
+            const resultDescription = document.getElementById('resultDescription');
+            const resultContainer = document.getElementById('result');
+
+            resultTitle.textContent = result === 'A' ? '결과 A' : '당신은 프런트엔드 개발자';
+            resultDescription.textContent = result === 'A' ? 'A에 대한 설명' : 'HTML을 공부해볼까요?';
+            resultContainer.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
